@@ -5,11 +5,9 @@ MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
-RUN apt-get install -y nano procps htop
-ENV TERM xterm
-
 RUN apt-get install -y \
     postfix \
+    procps \
     rsyslog \
     supervisor
 
