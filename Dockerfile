@@ -19,7 +19,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM debian:stretch
+FROM python:3.6-stretch
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -34,12 +34,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     postfix \
     procps \
     rsyslog \
-    supervisor
-
-COPY --from=builder /usr/local/sbin/sigh /usr/local/sbin/
+    supervisor \
+    tinycdb
 
 ENV PORT 587
 RUN adduser filter --disabled-login --gecos ""
+
+ENV SIGH_ROOT=/var/lib/sigh
+COPY --from=builder /usr/local/sbin/sigh /usr/local/sbin/
+RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 
 COPY log.sh send_test_mail.py /usr/bin/
 
@@ -53,9 +56,9 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -P "submission/inet/content_filter=signingfilter:dummy" && \
     postconf -M "signingfilter/unix=signingfilter unix - n n - 2 pipe"
 # FixMe: Can this be also realised with postconf?
-RUN echo '    flags=Rq user=filter argv=/sign.sh -f ${sender} -- ${recipient}' >> /etc/postfix/master.cf
+RUN echo '    flags=Rq user=filter argv=/usr/local/sbin/sigh' >> /etc/postfix/master.cf
 
 COPY supervisord.conf /etc/supervisor/
-COPY entrypoint.sh heartbeat.sh sign.sh /
+COPY entrypoint.sh heartbeat.sh configure_sigh.py /
 
 ENTRYPOINT ["/entrypoint.sh"]
