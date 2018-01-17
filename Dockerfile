@@ -12,9 +12,11 @@ RUN apt-get install -y \
     libmilter-dev \
     libssl-dev
 
-ADD https://github.com/croessner/sigh/archive/v1607.1.1.tar.gz /tmp/
+ENV SIGH_VERSION=1607.1.1
+
+ADD "https://github.com/croessner/sigh/archive/v${SIGH_VERSION}.tar.gz" /tmp/
 COPY install-sigh.sh /
-RUN /install-sigh.sh
+RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
 FROM debian:stretch
