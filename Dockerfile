@@ -34,14 +34,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     postfix \
     procps \
     rsyslog \
-    supervisor \
-    tinycdb
+    supervisor
 
 ENV PORT 587
 RUN adduser filter --disabled-login --gecos ""
 
 ENV SIGH_ROOT=/var/lib/sigh
 COPY --from=builder /usr/local/sbin/sigh /usr/local/sbin/
+RUN mkdir /etc/sigh
+COPY sigh.cfg /etc/sigh/
 RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 
 COPY log.sh send_test_mail.py /usr/bin/
