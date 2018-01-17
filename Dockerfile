@@ -1,14 +1,40 @@
+FROM debian:stretch as builder
+
+MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
+
+RUN apt-get update
+RUN apt-get install -y \
+    cmake \
+    g++ \
+    libboost-filesystem-dev \
+    libboost-program-options-dev \
+    libboost-system-dev \
+    libmilter-dev \
+    libssl-dev
+
+ADD https://github.com/croessner/sigh/archive/v1607.1.1.tar.gz /tmp/
+COPY install-sigh.sh /
+RUN /install-sigh.sh
+
+
 FROM debian:stretch
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    libboost-filesystem1.62.0 \
+    libboost-program-options1.62.0 \
+    libboost-system1.62.0 \
+    libmilter1.0.1 \
+    libssl1.1 \
     maildrop \
     postfix \
     procps \
     rsyslog \
     supervisor
+
+COPY --from=builder /usr/local/sbin/sigh /usr/local/sbin/
 
 ENV PORT 587
 RUN adduser filter --disabled-login --gecos ""
