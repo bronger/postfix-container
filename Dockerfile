@@ -13,6 +13,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 ENV PORT 587
 RUN adduser filter --disabled-login --gecos ""
 
+COPY log.sh send_test_mail.py /usr/bin/
+
 RUN apt-get install nano htop
 ENV TERM=xterm
 
