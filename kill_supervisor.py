@@ -29,7 +29,7 @@ while True:
     headers = dict([x.split(":") for x in line.split()])
     payload = sys.stdin.read(int(headers['len']))
     logging.info("Payload: " + payload)
-    if headers["eventname"] == "PROCESS_STATE_FATAL" and \
+    if headers["eventname"] in {"PROCESS_STATE_FATAL", "PROCESS_STATE_EXITED"} and \
        dict([x.split(":") for x in payload.split()])["processname"] == "heartbeat":
         supervisord.kill()
         print("RESULT 4\nFAIL", flush=True, end="")
