@@ -1,8 +1,25 @@
 #!/usr/bin/env python3
 
-import sys, os, signal, time, logging
+import sys, os, signal, time, logging, psutil
+
 
 logging.basicConfig(filename="/tmp/toll.log", level=logging.INFO)
+
+
+try:
+    supervisord_pid = int(open("/var/run/supervisord.pid").read())
+except (FileNotFoundError, ValueError):
+    for process in psutil.process_iter():
+        if process.name() == "supervisord":
+            supervisord = process
+            break
+    else:
+        supervisord = psutil.Process().parent()
+        if not supervisord:
+            RuntimeError("No supervisord process found")
+else:
+    supervisord = psutil.Process(supervisord_pid)
+
 
 while True:
     print("READY", flush=True)
@@ -14,12 +31,7 @@ while True:
     logging.info("Payload: " + payload)
     if headers["eventname"] == "PROCESS_STATE_FATAL" and \
        dict([x.split(":") for x in payload.split()])["processname"] == "heartbeat":
-        try:
-            with open("/var/run/supervisord.pid") as pid_file:
-                pid = int(pid_file.read())
-            os.kill(pid, signal.SIGKILL)
-        except Exception as error:
-            pass
+        supervisord.kill()
         print("RESULT 4\nFAIL", flush=True, end="")
         logging.info("RESULT 4\\nFAIL")
     else:
