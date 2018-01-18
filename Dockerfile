@@ -31,7 +31,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libmilter1.0.1 \
     libsasl2-modules \
     libssl1.1 \
-    maildrop \
     postfix \
     rsyslog \
     supervisor
