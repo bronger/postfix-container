@@ -46,11 +46,6 @@ RUN mkdir /etc/sigh
 COPY sigh.cfg /etc/sigh/
 RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 
-COPY log.sh send_test_mail.py /usr/bin/
-
-RUN apt-get install nano htop
-ENV TERM=xterm
-
 RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "smtp_sasl_password_maps=hash:/etc/postfix/relay_passwd" && \
     postconf -e "mynetworks=127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128" && \
