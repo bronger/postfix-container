@@ -29,6 +29,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libboost-program-options1.62.0 \
     libboost-system1.62.0 \
     libmilter1.0.1 \
+    libsasl2-modules \
     libssl1.1 \
     maildrop \
     postfix \
