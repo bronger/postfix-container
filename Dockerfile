@@ -37,7 +37,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     supervisor
 RUN pip3 install psutil
 
-ENV PORT 587
+ENV RELAY_PORT 587
 RUN adduser filter --disabled-login --gecos ""
 
 ENV SIGH_ROOT=/var/lib/sigh
