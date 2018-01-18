@@ -32,9 +32,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libssl1.1 \
     maildrop \
     postfix \
-    procps \
     rsyslog \
     supervisor
+RUN pip3 install psutil
 
 ENV PORT 587
 RUN adduser filter --disabled-login --gecos ""
@@ -60,6 +60,6 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
 RUN echo '    flags=Rq user=filter argv=/usr/local/sbin/sigh' >> /etc/postfix/master.cf
 
 COPY supervisord.conf /etc/supervisor/
-COPY entrypoint.sh heartbeat.sh configure_sigh.py /
+COPY entrypoint.sh heartbeat.py configure_sigh.py /
 
 ENTRYPOINT ["/entrypoint.sh"]
