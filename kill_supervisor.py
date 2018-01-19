@@ -29,11 +29,12 @@ while True:
     headers = dict([x.split(":") for x in line.split()])
     payload = sys.stdin.read(int(headers['len']))
     logging.info("Payload: " + payload)
-    if headers["eventname"] in {"PROCESS_STATE_FATAL", "PROCESS_STATE_EXITED"} and \
-       dict([x.split(":") for x in payload.split()])["processname"] == "heartbeat":
-        supervisord.kill()
-        print("RESULT 4\nFAIL", flush=True, end="")
-        logging.info("RESULT 4\\nFAIL")
-    else:
-        print("RESULT 2\nOK", flush=True, end="")
-        logging.info("RESULT 2\\nOK")
+    if headers["eventname"] in {"PROCESS_STATE_FATAL", "PROCESS_STATE_EXITED"}:
+        payload = dict(item.split(":", 1) for item in payload.split())
+        if payload["processname"] == "heartbeat" and payload["expected"] == "0":
+            supervisord.kill()
+            print("RESULT 4\nFAIL", flush=True, end="")
+            logging.info("RESULT 4\\nFAIL")
+            continue
+    print("RESULT 2\nOK", flush=True, end="")
+    logging.info("RESULT 2\\nOK")
