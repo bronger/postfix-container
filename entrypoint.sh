@@ -14,6 +14,11 @@ postmap hash:/etc/postfix/relay_passwd
 supervisord -c /etc/supervisor/supervisord.conf &
 supervisord_pid=$!
 wait $supervisord_pid
+result=$?
+if [ $result -le 128 ]
+then
+   exit $result
+fi
 trap - TERM
 wait $supervisord_pid
 exit $?
