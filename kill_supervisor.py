@@ -3,7 +3,7 @@
 import sys, os, signal, time, logging, psutil
 
 
-logging.basicConfig(filename="/tmp/kill_supervisor.log", level=logging.INFO)
+logging.basicConfig(filename="/var/log/kill_supervisor.log", level=logging.INFO)
 
 
 try:
