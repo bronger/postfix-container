@@ -35,6 +35,7 @@ while True:
             supervisord.terminate()
             time.sleep(30)
             supervisord.kill()
+            # This code should never be reached
             print("RESULT 4\nFAIL", flush=True, end="")
             logging.info("RESULT 4\\nFAIL")
             continue
