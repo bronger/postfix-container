@@ -26,7 +26,7 @@ while True:
     logging.info("READY")
     line = input()
     logging.info(line)
-    headers = dict([x.split(":") for x in line.split()])
+    headers = dict([item.split(":", 1) for item in line.split()])
     payload = sys.stdin.read(int(headers['len']))
     logging.info("Payload: " + payload)
     if headers["eventname"] in {"PROCESS_STATE_FATAL", "PROCESS_STATE_EXITED"}:
