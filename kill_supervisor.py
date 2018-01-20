@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, os, signal, time, logging, psutil
+import sys, time, logging, psutil
 
 
 logging.basicConfig(filename="/var/log/kill_supervisor.log", level=logging.INFO)
