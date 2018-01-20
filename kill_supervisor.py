@@ -31,7 +31,7 @@ while True:
     logging.info("Payload: " + payload)
     if headers["eventname"] in {"PROCESS_STATE_FATAL", "PROCESS_STATE_EXITED"}:
         payload = dict(item.split(":", 1) for item in payload.split())
-        if payload["expected"] == "0":
+        if payload["from_state"] == "RUNNING" and payload["expected"] == "0":
             supervisord.terminate()
             time.sleep(30)
             supervisord.kill()
