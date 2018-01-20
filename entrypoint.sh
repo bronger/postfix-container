@@ -3,7 +3,7 @@ set -e
 
 # The propagating of SIGTERM was taken from
 # <http://veithen.github.io/2014/11/16/sigterm-propagation.html>.
-trap "kill -s SIGTERM $supervisord_pid; ITS_A_TRAP=true" TERM
+trap "kill -s TERM $supervisord_pid; ITS_A_TRAP=true" TERM
 
 /configure_sigh.py "$SIGH_ROOT"
 postconf -e "relayhost=$RELAY_HOST:$RELAY_PORT"
