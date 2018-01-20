@@ -52,6 +52,6 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -M "submission/inet=submission inet n - n - - smtpd"
 
 COPY supervisord.conf /etc/supervisor/
-COPY entrypoint.sh heartbeat.py configure_sigh.py kill_supervisor.py /
+COPY entrypoint.sh configure_sigh.py kill_supervisor.py postfix.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
