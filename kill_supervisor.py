@@ -14,9 +14,7 @@ except (FileNotFoundError, ValueError):
             supervisord = process
             break
     else:
-        supervisord = psutil.Process().parent()
-        if not supervisord:
-            RuntimeError("No supervisord process found")
+        supervisord = psutil.Process(1)
 else:
     supervisord = psutil.Process(supervisord_pid)
 
