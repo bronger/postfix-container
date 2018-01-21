@@ -1,8 +1,8 @@
 #!/bin/sh
 # Taken from <https://gist.github.com/chrisnew/b0c1b8d310fc5ceaeac4>.
 
-trap "postfix stop; result=0" TERM
-trap "postfix reload" HUP
+trap 'postfix stop; result=0' TERM
+trap 'postfix reload' HUP
 
 postfix start
 sleep 3
