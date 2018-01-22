@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, time, logging, psutil
+import sys, time, logging, psutil, os
 
 
 logging.basicConfig(filename="/var/log/kill_supervisor.log", level=logging.INFO)
@@ -19,6 +19,13 @@ else:
     supervisord = psutil.Process(supervisord_pid)
 
 
+try:
+    termination_grace_period_seconds = int(os.environ.get("terminationGracePeriodSeconds"))
+except (ValueError, TypeError):
+    termination_grace_period_seconds = 30
+termination_grace_period_seconds = max(termination_grace_period_seconds - 10, 0)
+
+
 while True:
     print("READY", flush=True)
     logging.info("READY")
@@ -31,7 +38,7 @@ while True:
         payload = dict(item.split(":", 1) for item in payload.split())
         if payload["from_state"] == "RUNNING" and payload["expected"] == "0":
             supervisord.terminate()
-            time.sleep(30)
+            time.sleep(termination_grace_period_seconds)
             supervisord.kill()
             # This code should never be reached
             print("RESULT 4\nFAIL", flush=True, end="")
