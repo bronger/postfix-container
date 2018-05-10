@@ -4,7 +4,7 @@
 trap 'postfix stop; result=0' TERM
 trap 'postfix reload' HUP
 
-postfix start
+service postfix start
 sleep 3
 
 PID=`cat /var/spool/postfix/pid/master.pid`
