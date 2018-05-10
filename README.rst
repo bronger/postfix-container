@@ -8,6 +8,8 @@ cluster, while using your institution's mail relay for sending.  The Postfix
 can also add S/MIME signatures to the mails, using
 https://github.com/croessner/sigh.
 
+You connect to that server through port 587 (unencryptet, unauthenticated).
+
 
 Building the Image
 ==================
