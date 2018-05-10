@@ -12,7 +12,7 @@ RUN apt-get install -y \
     libmilter-dev \
     libssl-dev
 
-ENV SIGH_VERSION=1607.1.1
+ENV SIGH_VERSION=1607.1.6
 
 ADD "https://github.com/croessner/sigh/archive/v${SIGH_VERSION}.tar.gz" /tmp/
 COPY install-sigh.sh /
