@@ -2,8 +2,10 @@ FROM debian:stretch as builder
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
-RUN apt-get update
-RUN apt-get install -y \
+ARG TERM=linux
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
     cmake \
     g++ \
     libboost-filesystem-dev \
@@ -23,8 +25,10 @@ FROM python:3.6-stretch
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+ARG TERM=linux
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
     ca-certificates \
     libboost-filesystem1.62.0 \
     libboost-program-options1.62.0 \
