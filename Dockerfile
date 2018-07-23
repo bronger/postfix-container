@@ -49,6 +49,7 @@ RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "smtp_use_tls=yes" && \
     postconf -e "smtp_tls_CAfile=/etc/ssl/certs/ca-certificates.crt" && \
+    postconf -e "smtp_sasl_tls_security_options=noanonymous" && \
     postconf -e "smtp_sasl_password_maps=hash:/etc/postfix/relay_passwd" && \
     postconf -e "mynetworks=127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128" && \
     postconf -e "smtpd_milters=inet:localhost:4000" && \
