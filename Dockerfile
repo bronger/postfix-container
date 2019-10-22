@@ -5,7 +5,8 @@ MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremove && \
+    apt-get install -y \
     cmake \
     g++ \
     libboost-filesystem-dev \
@@ -28,7 +29,8 @@ MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremove && \
+    apt-get install -y \
     ca-certificates \
     libboost-filesystem1.62.0 \
     libboost-program-options1.62.0 \
