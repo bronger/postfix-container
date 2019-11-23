@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM python:3.6-stretch
+FROM python:3.6-slim-stretch
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -32,6 +32,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremove && \
     apt-get install -y \
     ca-certificates \
+    g++ \
     libboost-filesystem1.62.0 \
     libboost-program-options1.62.0 \
     libboost-system1.62.0 \
@@ -40,8 +41,10 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     libssl1.1 \
     postfix \
     rsyslog \
-    supervisor
-RUN pip3 install psutil
+    supervisor \
+    && rm -rf /var/lib/apt/lists/* && \
+    pip3 --no-cache-dir install psutil && \
+    apt-get purge -y --autoremove g++
 
 ENV RELAY_PORT 587
 RUN adduser filter --disabled-login --gecos ""
