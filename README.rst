@@ -1,7 +1,7 @@
 Overview
 ========
 
-This image runs a Postfix in a container that can be connected to locally.  All
+This image runs a Postfix in a container that can be connected to from locally running containers or programs.  All
 mails sent to it are relayed to another HOST which actually sends the mails
 into the world.  A typical use case is running the container in a local
 cluster, while using your institution's mail relay for sending.  The Postfix
