@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 /configure_sigh.py "$SIGH_ROOT"
