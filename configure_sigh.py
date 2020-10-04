@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import os, glob, shutil, stat, sys, pwd
 from pathlib import Path
