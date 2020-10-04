@@ -46,7 +46,7 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     pip3 --no-cache-dir install psutil && \
     apt-get purge -y --autoremove g++
 
-ENV RELAY_PORT 587
+ENV RELAY_PORT=587
 RUN adduser filter --disabled-login --gecos ""
 
 ENV SIGH_ROOT=/var/lib/sigh
