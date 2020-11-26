@@ -24,7 +24,7 @@ Docker 1.17 is required.  (For building, not for running.)
 Running the image
 =================
 
-There are four environment variables:
+There are five environment variables:
 
 ``RELAY_HOST``
   Domain name of the SMTP server used for actually sending the mail.
@@ -38,6 +38,9 @@ There are four environment variables:
 
 ``RELAY_PASSWORD``
   Password of ``RELAY_USER``.
+
+``TZ``
+  Timezone to use.  This is ``UTC`` by default, but may be ``Europe/Berlin``.
 
 
 So, for example, you could say::

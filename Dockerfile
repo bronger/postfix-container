@@ -39,12 +39,17 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     libmilter1.0.1 \
     libsasl2-modules \
     libssl1.1 \
+    locales \
     postfix \
     rsyslog \
     supervisor \
+    tzdata \
     && rm -rf /var/lib/apt/lists/* && \
     pip3 --no-cache-dir install psutil && \
     apt-get purge -y --autoremove g++
+RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV TZ=UTC
 
 ENV RELAY_PORT=587
 RUN adduser filter --disabled-login --gecos ""
