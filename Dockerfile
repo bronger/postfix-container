@@ -60,10 +60,11 @@ RUN mkdir /etc/sigh
 COPY sigh.cfg /etc/sigh/
 RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 
-RUN openssl req -new -key /etc/ssl/private/ssl-cert-snakeoil.key -sha256 -out /tmp/csr.pem -subj /CN=postfix && \
-    openssl x509 -in /tmp/csr.pem -out /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem \
-        -req -signkey /etc/ssl/private/ssl-cert-snakeoil.key -days 3650 && \
-    rm /tmp/csr.pem
+COPY csr.conf /tmp
+RUN openssl req -x509 -days 3650 -key /etc/ssl/private/ssl-cert-snakeoil.key \
+        -out /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -config /tmp/csr.conf -extensions v3_req && \
+    rm /tmp/csr.conf
+RUN openssl x509 -in /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -text
 
 RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "smtp_use_tls=yes" && \
