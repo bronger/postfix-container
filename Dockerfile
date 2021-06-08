@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as builder
+FROM debian:buster as builder
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM python:slim
+FROM python:3.6-slim-buster
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -32,6 +32,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremove && \
     apt-get install -y \
     ca-certificates \
+    g++ \
     libboost-filesystem1.67.0 \
     libboost-program-options1.67.0 \
     libboost-system1.67.0 \
@@ -40,8 +41,12 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     libssl1.1 \
     locales \
     postfix \
+    rsyslog \
+    supervisor \
     tzdata \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* && \
+    pip3 --no-cache-dir install psutil && \
+    apt-get purge -y --autoremove g++
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV TZ=UTC
@@ -70,10 +75,9 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "mynetworks=127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128" && \
     postconf -e "smtpd_milters=inet:localhost:4000" && \
     postconf -e "local_header_rewrite_clients=permit_mynetworks" && \
-    postconf -M "submission/inet=submission inet n - n - - smtpd" && \
-    postconf -e "maillog_file=/dev/stdout" && \
-    postconf -M "postlog/unix-dgram=postlog unix-dgram n - n - 1 postlogd"
+    postconf -M "submission/inet=submission inet n - n - - smtpd"
 
-COPY entrypoint.sh configure_sigh.py /
+COPY supervisord.conf /etc/supervisor/
+COPY entrypoint.sh configure_sigh.py kill_supervisor.py postfix.sh rsyslog.sh /
 
 ENTRYPOINT ["/entrypoint.sh"]
