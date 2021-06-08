@@ -58,8 +58,7 @@ senders are cryptographically signed.  For example,
 ::
 
    docker run --rm -e RELAY_HOST=smtp.example.com -e RELAY_USER=ralf -e RELAY_PASSWORD=ohmygod \
-      -v mailcerts:/etc/mailcerts
-      bronger/postfix
+      -v mailcerts:/etc/mailcerts bronger/postfix
 
 The certificates must be in the directory ``/etc/mailcerts`` in the container,
 and they must follow the following naming scheme:
