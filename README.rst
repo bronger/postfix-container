@@ -1,12 +1,12 @@
 Overview
 ========
 
-This image runs a Postfix in a container that can be connected to from locally running containers or programs.  All
-mails sent to it are relayed to another HOST which actually sends the mails
-into the world.  A typical use case is running the container in a local
-cluster, while using your institution's mail relay for sending.  The Postfix
-can also add S/MIME signatures to the mails, using
-https://github.com/croessner/sigh.
+This image runs a Postfix in a container that can be connected to from locally
+running containers or programs.  All mails sent to it are relayed to another
+HOST which actually sends the mails into the world.  A typical use case is
+running the container in a local cluster, while using your institution’s mail
+relay for sending.  The Postfix can also add S/MIME signatures to the mails,
+using https://github.com/croessner/sigh.
 
 You connect to that server through port 587 (unencryptet, unauthenticated).
 
@@ -70,5 +70,5 @@ and they must follow the following naming scheme:
 ================================= ===========================================================
 
 You can place files for as many email addresses as you wish in that folder.
-Only if the sender's address matches, the respective S/MIME certificate is used
+Only if the sender’s address matches, the respective S/MIME certificate is used
 and the email is signed.
