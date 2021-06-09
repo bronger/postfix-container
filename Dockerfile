@@ -41,7 +41,6 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     libssl1.1 \
     locales \
     postfix \
-    rsyslog \
     supervisor \
     telnet \
     tzdata \
@@ -76,9 +75,11 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "mynetworks=127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128" && \
     postconf -e "smtpd_milters=inet:localhost:4000" && \
     postconf -e "local_header_rewrite_clients=permit_mynetworks" && \
-    postconf -M "submission/inet=submission inet n - n - - smtpd"
+    postconf -M "submission/inet=submission inet n - n - - smtpd" && \
+    postconf -e "maillog_file=/dev/stdout" && \
+    postconf -M "postlog/unix-dgram=postlog unix-dgram n - n - 1 postlogd"
 
 COPY supervisord.conf /etc/supervisor/
-COPY entrypoint.sh configure_sigh.py kill_supervisor.py postfix.sh rsyslog.sh /
+COPY entrypoint.sh configure_sigh.py kill_supervisor.py /
 
 ENTRYPOINT ["/entrypoint.sh"]
