@@ -43,6 +43,7 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     postfix \
     rsyslog \
     supervisor \
+    telnet \
     tzdata \
     && rm -rf /var/lib/apt/lists/* && \
     pip3 --no-cache-dir install psutil && \
