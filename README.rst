@@ -72,3 +72,43 @@ and they must follow the following naming scheme:
 You can place files for as many email addresses as you wish in that folder.
 Only if the sender’s address matches, the respective S/MIME certificate is used
 and the email is signed.
+
+
+Kubernetes
+==========
+
+For Kubernetes, you can split it into two containers, running in a pod, like
+this:
+
+.. code-block:: yaml
+
+    kind: Deployment
+    …
+        spec:
+          containers:
+            - name: postfix
+              image: bronger/postfix
+              command: [/opt/entrypoints/entrypoint-postfix.sh]
+              ports:
+                - containerPort: 587
+              env:
+                - name: RELAY_HOST
+                  value: …
+                - name: RELAY_PORT
+                  value: …
+                - name: RELAY_USER
+                  value: …
+                - name: RELAY_PASSWORD
+                  value: …
+                - name: TZ
+                  value: …
+            - name: sigh
+              image: bronger/postfix
+              command: [/opt/entrypoints/entrypoint-sigh.sh]
+              env:
+                - name: TZ
+                  value: …
+              volumeMounts:
+                - name: smime-certificates
+                  mountPath: /etc/mailcerts
+          …
