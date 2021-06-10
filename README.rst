@@ -112,3 +112,5 @@ this:
                 - name: smime-certificates
                   mountPath: /etc/mailcerts
           …
+
+Do always include the Sigh container, even if you don’t need signing.
