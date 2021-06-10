@@ -81,6 +81,7 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -M "postlog/unix-dgram=postlog unix-dgram n - n - 1 postlogd"
 
 COPY supervisord.conf /etc/supervisor/
-COPY entrypoint.sh configure_sigh.py kill_supervisor.py /
+COPY kill_supervisor.py /
+COPY entrypoints /opt/entrypoints
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/opt/entrypoints/entrypoint.sh"]
