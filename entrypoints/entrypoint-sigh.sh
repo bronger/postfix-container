@@ -7,4 +7,4 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 . "$SCRIPTPATH"/configure-common.sh
 . "$SCRIPTPATH"/configure-sigh.sh
 
-exec sigh
+exec sigh --debug
