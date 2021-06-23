@@ -76,8 +76,7 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "smtpd_milters=inet:localhost:4000" && \
     postconf -e "local_header_rewrite_clients=permit_mynetworks" && \
     postconf -M "submission/inet=submission inet n - n - - smtpd" && \
-    postconf -M "smtp/unix=smtp unix - - n - - smtp" && \
-    postconf -e "maillog_file=/dev/stdout"
+    postconf -M "smtp/unix=smtp unix - - n - - smtp"
 
 COPY supervisord.conf /etc/supervisor/
 COPY kill_supervisor.py /

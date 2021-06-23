@@ -42,6 +42,12 @@ There are five environment variables:
 ``TZ``
   Timezone to use.  This is ``UTC`` by default, but may be ``Europe/Berlin``.
 
+``LOG_OUTPUT``
+  Whether Postfix, or Sigh, or both should log to stdout.  It is a
+  space-separated list of names.  Allowed are the names “postfix” and “sigh”.
+  Defaults to ``postfix sigh``, i.e. both.  Mind to quote it properly,
+  depending on context.
+
 
 So, for example, you could say::
 

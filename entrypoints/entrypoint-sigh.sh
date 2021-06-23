@@ -7,4 +7,13 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 . "$SCRIPTPATH"/configure-common.sh
 . "$SCRIPTPATH"/configure-sigh.sh
 
-exec sigh --debug
+debug=
+for word in $LOG_OUTPUT
+do
+    if [ $word = sigh ]
+    then
+        debug=--debug
+    fi
+done
+
+exec sigh $debug
