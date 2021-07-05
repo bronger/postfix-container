@@ -14,8 +14,11 @@ do
         debug=true
     fi
 done
-if [ $debug = false ]
+if [ $debug = true ]
 then
+    echo "Container configuration: Debugging output of Sigh is ON"
+else    
+    echo "Container configuration: Debugging output of Sigh is OFF"
     config_path=/etc/supervisor/supervisord.conf
     grep -q '^command = /usr/local/sbin/sigh$' "$config_path" && exit 1
     sed -i 's!^command = /usr/local/sbin/sigh --debug$!command = /usr/local/sbin/sigh!' "$config_path"
