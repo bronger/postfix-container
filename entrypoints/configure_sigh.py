@@ -25,7 +25,7 @@ for path_key in [Path(path) for path in glob.glob("/etc/mailcerts/*_key.pem")]:
     cert_plus_chain = open(path_key.parent/(name + "_cert.pem")).read()
     path_chain = path_key.parent/(name + "_chain.pem")
     if path_chain.exists():
-        cert_plus_chain += open(path_chain).read()
+        cert_plus_chain += "\n" + open(path_chain).read()
     path_cert_plus_chain = root/(name + "_cert+chain.pem")
     with open(path_cert_plus_chain, "w") as file_cert_plus_chain:
         os.chmod(file_cert_plus_chain.fileno(), stat.S_IRUSR | stat.S_IWUSR)
