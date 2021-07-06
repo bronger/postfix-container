@@ -40,3 +40,5 @@ if not certificates:
 with open("/etc/sigh/mapfile.txt", "w") as map_file:
     for email, path_key, path_cert_plus_chain in certificates:
         map_file.write("{} key:{},cert:{}\n".format(email, path_key, path_cert_plus_chain))
+
+print(f"configure_sigh.py: Files in {root}:", ", ".join(os.listdir(root)))
