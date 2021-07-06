@@ -15,7 +15,7 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     libmilter-dev \
     libssl-dev
 
-ENV SIGH_VERSION=1607.1.6-tb1
+ENV SIGH_VERSION=1607.1.6-tb2
 
 ADD "https://github.com/bronger/sigh/archive/v${SIGH_VERSION}.tar.gz" /tmp/
 COPY install-sigh.sh /
