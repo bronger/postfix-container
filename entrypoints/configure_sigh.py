@@ -32,7 +32,7 @@ for path_key in [Path(path) for path in glob.glob("/etc/mailcerts/*_key.pem")]:
         os.chown(file_cert_plus_chain.fileno(), uid, gid)
         file_cert_plus_chain.write(cert_plus_chain)
 
-    certificates.append((email, path_key, path_cert_plus_chain))
+    certificates.append((email, new_path_key, path_cert_plus_chain))
 
 if not certificates:
     print("configure_sigh.py: WARNING: No S/MIME certificates found")
