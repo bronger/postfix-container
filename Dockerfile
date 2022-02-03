@@ -45,7 +45,7 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     telnet \
     tzdata \
     && rm -rf /var/lib/apt/lists/* && \
-    pip3 --no-cache-dir install psutil && \
+    pip3 --disable-pip-version-check --no-cache-dir install psutil && \
     apt-get purge -y --autoremove g++
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG=en_US.UTF-8
