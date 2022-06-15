@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-bullseye
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -33,12 +33,11 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     apt-get install -y \
     ca-certificates \
     g++ \
-    libboost-filesystem1.67.0 \
-    libboost-program-options1.67.0 \
-    libboost-system1.67.0 \
+    libboost-filesystem1.74.0 \
+    libboost-program-options1.74.0 \
+    libboost-system1.74.0 \
     libmilter1.0.1 \
     libsasl2-modules \
-    libssl1.1 \
     locales \
     postfix \
     supervisor \
