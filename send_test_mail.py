@@ -6,9 +6,10 @@ from email.message import EmailMessage
 
 parser = argparse.ArgumentParser(description="Send a test mail.")
 parser.add_argument("recipient", metavar="TO-ADDRESS", help="email address of the recipient")
-parser.add_argument("--sender", metavar="ADDRESS", default="test@example.com", help="email address of the sender")
+parser.add_argument("--sender", metavar="ADDRESS", default="test@example.com",
+                    help="email address of the sender (default: test@example.com)")
 parser.add_argument("--envelope-sender", metavar="ADDRESS",
-                    help="email address of the sender in the envelope (“return path”)")
+                    help="email address of the sender in the envelope (“return path”; default: same as --sender)")
 args = parser.parse_args()
 
 
