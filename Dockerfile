@@ -1,4 +1,4 @@
-FROM debian:bullseye as builder
+FROM ubuntu:22.04 as builder
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM python:3.10-slim-bullseye
+FROM python:3.10-slim
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
