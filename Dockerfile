@@ -30,7 +30,7 @@ ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremove && \
-    apt-get install -y \
+    apt-get install --no-install-recommends -y \
     ca-certificates \
     libboost-filesystem1.74.0 \
     libboost-program-options1.74.0 \
@@ -43,7 +43,7 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     telnet \
     tzdata \
     && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
     g++ && \
     pip3 --disable-pip-version-check --no-cache-dir install psutil && \
     apt-get purge -y --autoremove g++ && \
