@@ -85,5 +85,6 @@ RUN postconf -e "smtp_sasl_auth_enable=yes" && \
 COPY supervisord.conf /etc/supervisor/
 COPY kill_supervisor.py /
 COPY entrypoints /opt/entrypoints
+COPY send_test_mail.py /usr/local/bin/
 
 ENTRYPOINT ["/opt/entrypoints/entrypoint.sh"]
