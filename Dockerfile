@@ -32,7 +32,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremove && \
     apt-get install -y \
     ca-certificates \
-    g++ \
     libboost-filesystem1.74.0 \
     libboost-program-options1.74.0 \
     libboost-system1.74.0 \
@@ -43,9 +42,12 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     supervisor \
     telnet \
     tzdata \
-    && rm -rf /var/lib/apt/lists/* && \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    g++ && \
     pip3 --disable-pip-version-check --no-cache-dir install psutil && \
-    apt-get purge -y --autoremove g++
+    apt-get purge -y --autoremove g++ && \
+    rm -rf /var/lib/apt/lists/*
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV TZ=UTC
