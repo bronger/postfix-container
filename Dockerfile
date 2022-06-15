@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM python:3.10-slim
+FROM ubuntu:22.04
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -39,6 +39,9 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     libsasl2-modules \
     locales \
     postfix \
+    python-is-python3 \
+    python3 \
+    python3-pip \
     supervisor \
     telnet \
     tzdata \
