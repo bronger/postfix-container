@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM python:3.6-slim-buster
+FROM python:3.10-slim-buster
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
