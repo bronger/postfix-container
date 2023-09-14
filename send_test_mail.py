@@ -21,5 +21,5 @@ message["From"] = args.sender
 message["To"] = args.recipient
 message.set_content("Hello")
 
-s = smtplib.SMTP(args.host, args.port)
-s.sendmail(args.envelope_sender or args.sender, [args.recipient], message.as_string())
+with smtplib.SMTP(args.host, args.port) as s:
+    s.sendmail(args.envelope_sender or args.sender, [args.recipient], message.as_string())
