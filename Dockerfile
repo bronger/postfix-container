@@ -71,7 +71,7 @@ RUN openssl req -x509 -days 3650 -key /etc/ssl/private/ssl-cert-snakeoil.key \
 RUN openssl x509 -in /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -text
 
 RUN postconf -e "smtp_sasl_auth_enable=yes" && \
-    postconf -e "smtp_use_tls=yes" && \
+    postconf -e "smtp_tls_security_level=may" && \
     postconf -e "smtp_tls_CAfile=/etc/ssl/certs/ca-certificates.crt" && \
     postconf -e "smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil-postfix.pem" && \
     postconf -e "smtp_sasl_tls_security_options=noanonymous" && \
