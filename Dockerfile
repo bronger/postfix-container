@@ -64,11 +64,7 @@ RUN mkdir /etc/sigh
 COPY sigh.cfg /etc/sigh/
 RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 
-COPY csr.conf /tmp
-RUN openssl req -x509 -days 3650 -key /etc/ssl/private/ssl-cert-snakeoil.key \
-        -out /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -config /tmp/csr.conf -extensions v3_req && \
-    rm /tmp/csr.conf
-RUN openssl x509 -in /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -text
+COPY csr.conf /opt/
 
 RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "smtp_tls_security_level=may" && \
