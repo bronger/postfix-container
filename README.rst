@@ -48,11 +48,6 @@ There are five environment variables:
   Defaults to ``postfix sigh``, i.e. both.  Mind to quote it properly,
   depending on context.
 
-``POSTFIX_EXTRA_DNS_NAMES``
-  Space-separated list of additional DNS names for the self-signed certificate
-  for Postfix.  “postfix” is always set, but by using this environment
-  variable, you can add e.g. ``postfix.default.svc.cluster.local``.
-
 
 So, for example, you could say::
 
@@ -113,8 +108,6 @@ this:
                   value: …
                 - name: TZ
                   value: …
-                - name: POSTFIX_EXTRA_DNS_NAMES
-                  value: postfix.default.svc.cluster.local
             - name: sigh
               image: bronger/postfix
               command: [/opt/entrypoints/entrypoint-sigh.sh]
