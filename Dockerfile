@@ -64,21 +64,15 @@ RUN mkdir /etc/sigh
 COPY sigh.cfg /etc/sigh/
 RUN mkdir "$SIGH_ROOT"; chown filter "$SIGH_ROOT"
 
-COPY csr.conf /tmp
-RUN openssl req -x509 -days 3650 -key /etc/ssl/private/ssl-cert-snakeoil.key \
-        -out /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -config /tmp/csr.conf -extensions v3_req && \
-    rm /tmp/csr.conf
-RUN openssl x509 -in /etc/ssl/certs/ssl-cert-snakeoil-postfix.pem -text
-
 RUN postconf -e "smtp_sasl_auth_enable=yes" && \
     postconf -e "smtp_tls_security_level=may" && \
     postconf -e "smtp_sasl_mechanism_filter=!ntlm,static:rest" && \
     postconf -e "smtp_tls_CAfile=/etc/ssl/certs/ca-certificates.crt" && \
-    postconf -e "smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil-postfix.pem" && \
     postconf -e "smtp_sasl_tls_security_options=noanonymous" && \
     postconf -e "smtp_sasl_password_maps=hash:/etc/postfix/relay_passwd" && \
     postconf -e "mynetworks=127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128" && \
     postconf -e "smtpd_milters=inet:localhost:4000" && \
+    postconf -e "smtpd_tls_security_level=none" && \
     postconf -e "local_header_rewrite_clients=permit_mynetworks" && \
     postconf -M "submission/inet=submission inet n - n - - smtpd" && \
     postconf -M "smtp/unix=smtp unix - - n - - smtp"
