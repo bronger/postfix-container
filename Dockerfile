@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 as builder
+FROM ubuntu:22.04 AS builder
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
