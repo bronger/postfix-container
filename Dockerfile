@@ -46,6 +46,7 @@ RUN apt-get update && apt-get dist-upgrade -y --no-install-recommends --autoremo
     telnet \
     tzdata \
     && rm -rf /var/lib/apt/lists/*
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 RUN apt-get update && apt-get install --no-install-recommends -y \
     g++ && \
     pip3 --disable-pip-version-check --no-cache-dir install psutil && \
