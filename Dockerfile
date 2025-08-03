@@ -57,7 +57,7 @@ ENV LANG=en_US.UTF-8
 ENV TZ=UTC
 
 ENV RELAY_PORT=587
-RUN adduser filter --disabled-login --gecos ""
+RUN adduser filter --disabled-login --comment ""
 
 ENV SIGH_ROOT=/var/lib/sigh
 COPY --from=builder /usr/local/sbin/sigh /usr/local/sbin/
