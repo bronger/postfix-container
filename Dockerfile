@@ -1,6 +1,6 @@
 FROM debian:12 AS builder
 
-MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
+LABEL maintainer="Torsten Bronger <bronger@physik.rwth-aachen.de>"
 
 ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
@@ -24,7 +24,7 @@ RUN /install-sigh.sh "${SIGH_VERSION}"
 
 FROM debian:12
 
-MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
+LABEL maintainer="Torsten Bronger <bronger@physik.rwth-aachen.de>"
 
 ARG TERM=linux
 ARG DEBIAN_FRONTEND=noninteractive
