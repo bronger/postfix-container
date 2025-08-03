@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 AS builder
+FROM debian:12 AS builder
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
@@ -22,7 +22,7 @@ COPY install-sigh.sh /
 RUN /install-sigh.sh "${SIGH_VERSION}"
 
 
-FROM ubuntu:22.04
+FROM debian:12
 
 MAINTAINER Torsten Bronger <bronger@physik.rwth-aachen.de>
 
